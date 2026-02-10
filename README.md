@@ -1,10 +1,8 @@
 ## 1. Logo de la Carrera y del Proyecto
 
-Ejemplo:
-
 
 <div align="center">
-  <img src="https://www.ups.edu.ec/documents/20121/77326/Isotipo+Original.png/48fb2ada-b4e7-09df-b45a-884cda62cc9b?version=1.0&t=1620746533255&imagePreview=1"
+  <img src="logo/logo.png"
        width="100" alt="UPS Logo">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
        width="100" alt="Spring Boot Logo">
