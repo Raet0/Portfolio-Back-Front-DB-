@@ -36,9 +36,8 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users")
     public List<UserResponse> listUsers(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "50") int size
-    ) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size) {
         return adminService.listUsers(page, size);
     }
 
@@ -50,7 +49,7 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        adminService.deleteUser(id);
+    public void deleteUser(Authentication auth, @PathVariable Long id) {
+        adminService.deleteUser(currentUserId(auth), id);
     }
 }

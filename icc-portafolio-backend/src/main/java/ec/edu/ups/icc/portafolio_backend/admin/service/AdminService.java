@@ -1,5 +1,14 @@
 package ec.edu.ups.icc.portafolio_backend.admin.service;
 
+import java.util.List;
+import java.util.Objects;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import ec.edu.ups.icc.portafolio_backend.admin.dto.CreateUserRequest;
 import ec.edu.ups.icc.portafolio_backend.admin.dto.UpdateUserRequest;
 import ec.edu.ups.icc.portafolio_backend.admin.dto.UserResponse;
@@ -8,11 +17,6 @@ import ec.edu.ups.icc.portafolio_backend.admin.repository.AdminRepository;
 import ec.edu.ups.icc.portafolio_backend.programmer.entity.Role;
 import ec.edu.ups.icc.portafolio_backend.user.entity.User;
 import ec.edu.ups.icc.portafolio_backend.user.repository.UserRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AdminService {
@@ -62,7 +66,13 @@ public class AdminService {
         return new UserResponse(user.getId(), user.getName(), user.getEmail(), user.getRole().name());
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(Long adminId, Long userId) {
+        if (Objects.equals(adminId, userId)) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Un administrador no puede eliminarse a si mismo"
+            );
+        }
         userRepository.deleteById(userId);
     }
 }

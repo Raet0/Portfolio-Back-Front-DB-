@@ -1,5 +1,5 @@
 <div class="dropdown dropdown-end">
-  <button class="btn btn-ghost btn-circle indicator">
+  <button tabindex="0" class="btn btn-ghost btn-circle indicator" type="button">
     @if (notificationsService.notificationCount() > 0) {
       <span class="indicator-item badge badge-primary badge-sm">
         {{ notificationsService.notificationCount() }}
@@ -10,7 +10,7 @@
     </svg>
   </button>
 
-  <div class="dropdown-content z-[1] card card-compact w-96 bg-base-100 shadow">
+  <div tabindex="0" class="dropdown-content z-[1] card card-compact w-96 bg-base-100 shadow">
     <div class="card-body p-0 flex flex-col h-full">
       <!-- Header -->
       <div class="p-4 border-b border-base-300">
@@ -29,9 +29,9 @@
                 <p class="text-xs text-base-content/70">{{ notification.message }}</p>
                 <p class="text-xs text-base-content/50 mt-1">{{ notification.createdAt | date: 'short' }}</p>
               </div>
-              
+
               <!-- Botón de visto (✓) -->
-              <button 
+              <button
                 (click)="markAsRead(notification.id)"
                 class="btn btn-ghost btn-xs rounded-full hover:bg-success/20"
                 title="Marcar como leído">
@@ -46,7 +46,7 @@
 
       <!-- Footer con botón "Ver todas" -->
       <div class="border-t border-base-300 p-3 mt-auto">
-        <button 
+        <button
           (click)="goToAllNotifications()"
           class="btn btn-sm btn-primary w-full">
           Ver todas las notificaciones

@@ -4,7 +4,7 @@ spring:
 
   datasource:
     # Usamos la IP de tu VM 192.168.40.139 como fallback si la variable no existe
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.40.139:5432/db_porfolio}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.1.17:5432/db_porfolio}
     username: ${SPRING_DATASOURCE_USERNAME:rafael}
     password: ${SPRING_DATASOURCE_PASSWORD:162003}
     driver-class-name: org.postgresql.Driver

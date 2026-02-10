@@ -1,29 +1,43 @@
 package ec.edu.ups.icc.portafolio_backend.programmer.service;
 
-import ec.edu.ups.icc.portafolio_backend.programmer.entity.Advisory;
-import ec.edu.ups.icc.portafolio_backend.shared.util.MailTemplates;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import ec.edu.ups.icc.portafolio_backend.programmer.entity.Advisory;
+import ec.edu.ups.icc.portafolio_backend.shared.util.MailTemplates;
+
 @Service
 public class NotificationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
+
     private final JavaMailSender mailSender;
+
+    @Value("${spring.mail.username:}")
+    private String mailFrom;
 
     public NotificationService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
     public void notifyByEmail(String to, String subject, String body) {
+        if (mailFrom == null || mailFrom.isBlank()) {
+            logger.warn("Correo no enviado: falta spring.mail.username");
+            return;
+        }
         try {
             SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(mailFrom);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(body);
             mailSender.send(message);
         } catch (Exception ex) {
-            // en dev se ignora
+            logger.error("Error enviando correo a {}", to, ex);
         }
     }
 
